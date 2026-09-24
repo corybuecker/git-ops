@@ -1,0 +1,61 @@
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      73d
+configmap/loki               1      69d
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME             ENDPOINTS        AGE
+endpoints/loki   10.42.0.2:3100   73d
+LAST SEEN   TYPE      REASON             OBJECT                       MESSAGE
+9m33s       Warning   FailedMount        pod/loki-54489b859c-hrzm7    MountVolume.MountDevice failed for volume "pvc-479bdc82-11d7-4feb-afb6-f0f351911e25" : kubernetes.io/csi: attacher.MountDevice failed to create newCsiDriverClient: driver name driver.longhorn.io not found in the list of registered CSI drivers
+8m38s       Warning   FailedMount        pod/loki-54489b859c-hrzm7    MountVolume.MountDevice failed for volume "pvc-479bdc82-11d7-4feb-afb6-f0f351911e25" : rpc error: code = InvalidArgument desc = volume pvc-479bdc82-11d7-4feb-afb6-f0f351911e25 hasn't been attached yet
+7m59s       Normal    Scheduled          pod/loki-54489b859c-p5hm9    Successfully assigned loki/loki-54489b859c-p5hm9 to raspberry-pi-1
+7m58s       Normal    Pulled             pod/loki-54489b859c-p5hm9    Container image "grafana/loki@sha256:70b9f699fc9bb868b62f1cfd4f787dfa50242f1fd92e6089787d5d7daea75fe8" already present on machine and can be accessed by the pod
+7m58s       Normal    Created            pod/loki-54489b859c-p5hm9    Container created
+7m57s       Normal    Started            pod/loki-54489b859c-p5hm9    Container started
+7m57s       Warning   Unhealthy          pod/loki-54489b859c-p5hm9    Readiness probe failed: Get "http://10.42.0.2:3100/ready": dial tcp 10.42.0.2:3100: connect: connection refused
+7m38s       Warning   Unhealthy          pod/loki-54489b859c-p5hm9    Liveness probe failed: HTTP probe failed with statuscode: 503
+7m37s       Warning   Unhealthy          pod/loki-54489b859c-p5hm9    Readiness probe failed: HTTP probe failed with statuscode: 503
+8m          Normal    SuccessfulCreate   replicaset/loki-54489b859c   Created pod: loki-54489b859c-p5hm9
+NAME                         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/loki   Bound    pvc-479bdc82-11d7-4feb-afb6-f0f351911e25   5Gi        RWO            longhorn       <unset>                 68d
+NAME                        READY   STATUS    RESTARTS   AGE
+pod/loki-54489b859c-p5hm9   1/1     Running   0          8m
+NAME                                 TYPE                 DATA   AGE
+secret/sh.helm.release.v1.loki.v17   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v18   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v19   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v20   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v21   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v22   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v23   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v24   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v25   helm.sh/release.v1   1      68d
+secret/sh.helm.release.v1.loki.v26   helm.sh/release.v1   1      68d
+NAME                     AGE
+serviceaccount/default   73d
+serviceaccount/loki      73d
+NAME           TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/loki   ClusterIP   10.43.236.83   <none>        3100/TCP   73d
+NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/loki   1/1     1            1           68d
+NAME                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/loki-54489b859c   1         1         1       68d
+replicaset.apps/loki-6f7576599b   0         0         0       68d
+replicaset.apps/loki-789ddbb769   0         0         0       68d
+replicaset.apps/loki-7b56877b65   0         0         0       68d
+replicaset.apps/loki-7ff58d46d6   0         0         0       68d
+replicaset.apps/loki-d64754db4    0         0         0       68d
+NAME                                        ADDRESSTYPE   PORTS   ENDPOINTS   AGE
+endpointslice.discovery.k8s.io/loki-j829x   IPv4          3100    10.42.0.2   73d
+LAST SEEN   TYPE      REASON             OBJECT                       MESSAGE
+9m36s       Warning   FailedMount        pod/loki-54489b859c-hrzm7    MountVolume.MountDevice failed for volume "pvc-479bdc82-11d7-4feb-afb6-f0f351911e25" : kubernetes.io/csi: attacher.MountDevice failed to create newCsiDriverClient: driver name driver.longhorn.io not found in the list of registered CSI drivers
+8m41s       Warning   FailedMount        pod/loki-54489b859c-hrzm7    MountVolume.MountDevice failed for volume "pvc-479bdc82-11d7-4feb-afb6-f0f351911e25" : rpc error: code = InvalidArgument desc = volume pvc-479bdc82-11d7-4feb-afb6-f0f351911e25 hasn't been attached yet
+8m3s        Normal    Scheduled          pod/loki-54489b859c-p5hm9    Successfully assigned loki/loki-54489b859c-p5hm9 to raspberry-pi-1
+8m1s        Normal    Pulled             pod/loki-54489b859c-p5hm9    Container image "grafana/loki@sha256:70b9f699fc9bb868b62f1cfd4f787dfa50242f1fd92e6089787d5d7daea75fe8" already present on machine and can be accessed by the pod
+8m1s        Normal    Created            pod/loki-54489b859c-p5hm9    Container created
+8m          Normal    Started            pod/loki-54489b859c-p5hm9    Container started
+8m          Warning   Unhealthy          pod/loki-54489b859c-p5hm9    Readiness probe failed: Get "http://10.42.0.2:3100/ready": dial tcp 10.42.0.2:3100: connect: connection refused
+7m41s       Warning   Unhealthy          pod/loki-54489b859c-p5hm9    Liveness probe failed: HTTP probe failed with statuscode: 503
+7m40s       Warning   Unhealthy          pod/loki-54489b859c-p5hm9    Readiness probe failed: HTTP probe failed with statuscode: 503
+8m3s        Normal    SuccessfulCreate   replicaset/loki-54489b859c   Created pod: loki-54489b859c-p5hm9
+NAME                                              CPU        MEMORY     WINDOW
+podmetrics.metrics.k8s.io/loki-54489b859c-p5hm9   4863605n   187728Ki   17.684s
