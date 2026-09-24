@@ -13,9 +13,10 @@ storage_config:
     cache_location: /loki/index_cache
   object_store:
     s3:
-      bucket_name: loki-{{ .Values.aws.accountId }}-us-east-1-an
+      bucket_name: ${S3_BUCKET}
       endpoint: s3.us-east-1.amazonaws.com
       region: us-east-1
+      native_aws_auth_enabled: true
 
 schema_config:
   configs:
