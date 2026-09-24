@@ -23,3 +23,9 @@ spec:
           namespacePolicy:
             from: All
 ```
+
+3. Install sealed-secrets
+
+```bash
+kubectl apply -f https://github.com/bitnami/sealed-secrets/releases/download/v0.40.0/controller.yaml
+```
