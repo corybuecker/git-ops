@@ -31,6 +31,8 @@ spec:
             - -use-thanos-objstore=true
             - -config.expand-env=true
           volumeMounts:
+            - name: data
+              mountPath: /loki
             - name: config
               mountPath: /etc/loki/config
               readOnly: true
@@ -46,6 +48,9 @@ spec:
             seccompProfile:
               type: RuntimeDefault
       volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: loki
         - name: config
           configMap:
             name: loki

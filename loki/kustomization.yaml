@@ -5,6 +5,7 @@ namespace: loki
 resources:
   - namespace.yaml
   - serviceaccount.yaml
+  - pvc.yaml
   - deployment.yaml
 
 configMapGenerator:
