@@ -36,7 +36,7 @@ spec:
             - name: config
               mountPath: /etc/loki/config
               readOnly: true
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
