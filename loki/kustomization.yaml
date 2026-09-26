@@ -4,3 +4,9 @@ namespace: loki
 
 resources:
   - namespace.yaml
+  - deployment.yaml
+
+configMapGenerator:
+  - name: loki
+    files:
+      - conf/loki.yaml
