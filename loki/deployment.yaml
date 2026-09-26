@@ -18,7 +18,6 @@ spec:
     spec:
       serviceAccountName: loki
       securityContext:
-        allowPrivilegeEscalation: false
         fsGroup: 10001
         fsGroupChangePolicy: OnRootMismatch
         readOnlyRootFilesystem: true
@@ -30,6 +29,7 @@ spec:
       containers:
         - name: loki
           securityContext:
+            allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
