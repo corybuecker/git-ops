@@ -4,6 +4,7 @@ namespace: loki
 
 resources:
   - namespace.yaml
+  - serviceaccount.yaml
   - deployment.yaml
 
 configMapGenerator:
