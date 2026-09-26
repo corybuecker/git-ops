@@ -18,8 +18,16 @@ spec:
     spec:
       serviceAccountName: loki
       securityContext:
-        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+        fsGroup: 10001
         fsGroupChangePolicy: OnRootMismatch
+        readOnlyRootFilesystem: true
+        runAsGroup: 10001
+        runAsNonRoot: true
+        runAsUser: 10001
         seccompProfile:
           type: RuntimeDefault
       containers:
@@ -37,19 +45,6 @@ spec:
               mountPath: /etc/loki/config
               readOnly: true
           imagePullPolicy: IfNotPresent
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            fsGroup: 10001
-            fsGroupChangePolicy: OnRootMismatch
-            readOnlyRootFilesystem: true
-            runAsGroup: 10001
-            runAsNonRoot: true
-            runAsUser: 10001
-            seccompProfile:
-              type: RuntimeDefault
       volumes:
         - name: data
           persistentVolumeClaim:
