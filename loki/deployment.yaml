@@ -39,6 +39,9 @@ spec:
             - -config.file=/etc/loki/config/loki.yaml
             - -use-thanos-objstore=true
             - -config.expand-env=true
+          envFrom:
+            - secretRef:
+                name: loki
           volumeMounts:
             - name: data
               mountPath: /loki
