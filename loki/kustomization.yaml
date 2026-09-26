@@ -6,6 +6,7 @@ resources:
   - namespace.yaml
   - serviceaccount.yaml
   - pvc.yaml
+  - sealedsecret.json
   - deployment.yaml
 
 configMapGenerator:
