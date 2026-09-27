@@ -29,10 +29,11 @@ spec:
           command:
             - /webhook
             - --in-cluster=false
+            - --logtostderr
             - --namespace=pod-identity-webhook
             - --service-name=pod-identity-webhook
             - --token-audience=sts.amazonaws.com
-            - --logtostderr
+            - --watch-config-map
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: certificate
