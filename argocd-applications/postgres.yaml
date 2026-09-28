@@ -12,3 +12,11 @@ spec:
   destination:
     namespace: postgres
     server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      enabled: false
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+    - CreateNamespace=true

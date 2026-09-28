@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: loki
+  name: cloudflared
   namespace: argocd
 spec:
   project: default
   source:
-    path: loki
+    path: cloudflared
     repoURL: https://github.com/corybuecker/git-ops.git
     targetRevision: HEAD
   destination:
-    namespace: loki
+    namespace: cloudflared
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
