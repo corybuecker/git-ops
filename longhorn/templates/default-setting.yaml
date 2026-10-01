@@ -152,6 +152,15 @@ data:
     {{- if not (kindIs "invalid" .Values.defaultSettings.concurrentAutomaticEngineUpgradePerNodeLimit) }}
     concurrent-automatic-engine-upgrade-per-node-limit: {{ .Values.defaultSettings.concurrentAutomaticEngineUpgradePerNodeLimit | quote }}
     {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.allowInstanceManagerAutomaticUpgrade) }}
+    allow-instance-manager-automatic-upgrade: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.allowInstanceManagerAutomaticUpgrade }}
+    {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.instanceManagerUpgradeStartTime) }}
+    instance-manager-upgrade-start-time: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.instanceManagerUpgradeStartTime }}
+    {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.instanceManagerUpgradeTimeout) }}
+    instance-manager-upgrade-timeout: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.instanceManagerUpgradeTimeout }}
+    {{- end }}
     {{- if not (kindIs "invalid" .Values.defaultSettings.backingImageCleanupWaitInterval) }}
     backing-image-cleanup-wait-interval: {{ .Values.defaultSettings.backingImageCleanupWaitInterval | quote }}
     {{- end }}
@@ -233,6 +242,12 @@ data:
     {{- if not (kindIs "invalid" .Values.defaultSettings.dataEngineMemorySize) }}
     data-engine-memory-size: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.dataEngineMemorySize }}
     {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.dataEngineInterruptModeEnabled) }}
+    data-engine-interrupt-mode-enabled: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.dataEngineInterruptModeEnabled }}
+    {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.dataEngineCPUIsolationEnabled) }}
+    data-engine-cpu-isolation-enabled: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.dataEngineCPUIsolationEnabled }}
+    {{- end }}
     {{- if not (kindIs "invalid" .Values.defaultSettings.allowEmptyNodeSelectorVolume) }}
     allow-empty-node-selector-volume: {{ .Values.defaultSettings.allowEmptyNodeSelectorVolume }}
     {{- end }}
@@ -275,6 +290,15 @@ data:
     {{- if not (kindIs "invalid" .Values.defaultSettings.dataEngineCPUMask) }}
     data-engine-cpu-mask: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.dataEngineCPUMask }}
     {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.dataEngineNumberOfCPUCores) }}
+    data-engine-number-of-cpu-cores: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.dataEngineNumberOfCPUCores }}
+    {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.dataEngineIobufLargePoolSize) }}
+    data-engine-iobuf-large-pool-size: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.dataEngineIobufLargePoolSize }}
+    {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.dataEngineIobufSmallPoolSize) }}
+    data-engine-iobuf-small-pool-size: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.dataEngineIobufSmallPoolSize }}
+    {{- end }}
     {{- if not (kindIs "invalid" .Values.defaultSettings.replicaRebuildingBandwidthLimit) }}
     replica-rebuilding-bandwidth-limit: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.replicaRebuildingBandwidthLimit }}
     {{- end }}
@@ -283,6 +307,9 @@ data:
     {{- end }}
     {{- if not (kindIs "invalid" .Values.defaultSettings.defaultUblkNumberOfQueue) }}
     default-ublk-number-of-queue: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.defaultUblkNumberOfQueue }}
+    {{- end }}
+    {{- if not (kindIs "invalid" .Values.defaultSettings.defaultNvmeTcpNrIoQueues) }}
+    default-nvme-tcp-nr-io-queues: {{ include "longhorn.multiTypeSetting" .Values.defaultSettings.defaultNvmeTcpNrIoQueues }}
     {{- end }}
     {{- if not (kindIs "invalid" .Values.defaultSettings.engineImagePodLivenessProbePeriod) }}
     engine-image-pod-liveness-probe-period: {{ .Values.defaultSettings.engineImagePodLivenessProbePeriod | quote }}

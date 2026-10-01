@@ -9,6 +9,7 @@ resources:
 - base/postgres.yaml
 - base/cloudflared.yaml
 - base/alloy.yaml
+- base/forgejo.yaml
 
 patches:
 - path: patches/resources.yaml
