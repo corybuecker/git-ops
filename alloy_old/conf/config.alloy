@@ -1,0 +1,65 @@
+logging {
+  level = "info"
+  format = "logfmt"
+}
+
+prometheus.remote_write "mimir" {
+  endpoint {
+    url = "http://mimir.mimir.svc.cluster.local:8080/api/v1/push"
+  }
+}
+
+discovery.kubernetes "nodes" {
+  role = "node"
+}
+
+prometheus.scrape "nodes" {
+  targets    = discovery.kubernetes.nodes.targets
+  forward_to = [prometheus.remote_write.mimir.receiver]
+
+  bearer_token_file    = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+
+  scheme               = "https"
+  scrape_interval      = "30s"
+
+  tls_config {
+    insecure_skip_verify = true
+  }
+
+  metrics_path = "/metrics/cadvisor"
+}
+
+
+
+
+
+
+
+loki.write "loki" {
+  endpoint {
+    url = "http://loki.loki.svc.cluster.local:3100/loki/api/v1/push"
+  }
+}
+
+discovery.kubernetes "pods" {
+  role = "pod"
+}
+
+discovery.relabel "pods" {
+  targets = discovery.kubernetes.pods.targets
+
+  rule {
+    source_labels = ["__meta_kubernetes_namespace"]
+    regex         = "(kube-system|longhorn-system)"
+    action        = "drop"
+  }
+}
+
+loki.source.kubernetes "pod" {
+  targets    = discovery.relabel.pods.output
+  forward_to = [loki.write.loki.receiver]
+}
+
+loki.source.kubernetes_events "nodes" {
+  forward_to = [loki.write.loki.receiver]
+}

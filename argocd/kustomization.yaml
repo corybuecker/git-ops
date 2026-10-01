@@ -5,6 +5,10 @@ namespace: argocd
 resources:
 - base/namespace.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/refs/tags/v3.5.3/manifests/install.yaml
+- base/loki.yaml
+- base/postgres.yaml
+- base/cloudflared.yaml
+- base/alloy.yaml
 
 patches:
 - path: patches/resources.yaml

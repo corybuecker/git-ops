@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: alloy
+
+resources:
+  - namespace.yaml
+  - serviceaccount.yaml
+  - deployment.yaml
+
+configMapGenerator:
+  - name: alloy
+    files:
+      - conf/config.alloy
+
+images:
+- name: alloy
+  newName: grafana/alloy
+  newTag: v1.20.0
+  digest: sha256:f111cce835516c5f99166342be7038496b52ced16667be5a11e19258a3e4cd30
