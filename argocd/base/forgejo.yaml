@@ -8,7 +8,7 @@ spec:
   source:
     path: forgejo
     repoURL: https://github.com/corybuecker/git-ops.git
-    targetRevision: update-forgejo
+    targetRevision: HEAD
   destination:
     namespace: forgejo
     server: https://kubernetes.default.svc
