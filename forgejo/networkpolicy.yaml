@@ -1,70 +1,58 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: forgejo-allow-dns
-  namespace: forgejo
+  name: default-deny-all
 spec:
-  podSelector:
-    matchLabels:
-      app: forgejo
-  policyTypes:
-    - Egress
-  egress:
-    - to:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: kube-system
-          podSelector:
-            matchLabels:
-              k8s-app: kube-dns
-      ports:
-        - port: 53
-          protocol: UDP
-        - port: 53
-          protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: forgejo-allow-https-egress
-  namespace: forgejo
-spec:
-  podSelector:
-    matchLabels:
-      app: forgejo
-  policyTypes:
-    - Egress
-  egress:
-    - to:
-        - ipBlock:
-            cidr: 0.0.0.0/0
-            except:
-              - 10.0.0.0/8
-              - 172.16.0.0/12
-              - 192.168.0.0/16
-              - 169.254.0.0/16
-      ports:
-        - port: 443
-          protocol: TCP
-        - port: 80
-          protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: forgejo-allow-http-ingress
-  namespace: forgejo
-spec:
-  podSelector:
-    matchLabels:
-      app: forgejo
+  podSelector: {}
   policyTypes:
     - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-dns
+spec:
+  podSelector:
+    matchLabels:
+      app: forgejo
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+      - protocol: TCP
+        port: 53
+        endPort: 53
+      - protocol: UDP
+        port: 53
+        endPort: 53
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ingress-traefik
+spec:
+  podSelector:
+    matchLabels:
+      app: forgejo
+  policyTypes:
+  - Ingress
   ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: forgejo
-      ports:
-        - port: 3000
-          protocol: TCP
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/name: traefik
+    ports:
+      - protocol: TCP
+        port: 3000
+        endPort: 3000

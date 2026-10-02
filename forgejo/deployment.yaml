@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: forgejo
-  namespace: forgejo
   labels:
     app: forgejo
 spec:
@@ -17,7 +16,6 @@ spec:
       labels:
         app: forgejo
     spec:
-      serviceAccountName: forgejo
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
@@ -29,28 +27,22 @@ spec:
           type: RuntimeDefault
       containers:
         - name: forgejo
-          image: codeberg.org/forgejo/forgejo@sha256:23ccc146e6dc2cd1f5c5435909baae64db873201717f1726490dae649283e6cd # 16.0.2-rootless
+          image: forgejo
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 3000
-              protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
           envFrom:
             - configMapRef:
                 name: forgejo
             - secretRef:
                 name: forgejo
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            capabilities:
-              drop:
-                - ALL
-            seccompProfile:
-              type: RuntimeDefault
           resources:
             requests:
               cpu: 200m
@@ -82,8 +74,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/gitea
-            - name: ssh
-              mountPath: /opt/forgejo/ssh
             - name: tmp
               mountPath: /tmp
       volumes:
@@ -94,6 +84,3 @@ spec:
           emptyDir:
             medium: Memory
             sizeLimit: 64Mi
-        - name: ssh
-          configMap:
-            name: forgejo-ssh
