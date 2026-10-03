@@ -29,15 +29,13 @@ spec:
     ports:
       - protocol: TCP
         port: 53
-        endPort: 53
       - protocol: UDP
         port: 53
-        endPort: 53
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: ingress-traefik
+  name: ingress
 spec:
   podSelector:
     matchLabels:
@@ -55,4 +53,13 @@ spec:
     ports:
       - protocol: TCP
         port: 3000
-        endPort: 3000
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: cloudflared
+      podSelector:
+        matchLabels:
+          app: cloudflared
+    ports:
+      - protocol: TCP
+        port: 2222
