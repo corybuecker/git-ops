@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     path: alloy
-    repoURL: https://github.com/corybuecker/git-ops.git
+    repoURL: https://projects.corybuecker.dev/corybuecker/git-ops.git
     targetRevision: HEAD
   destination:
     namespace: alloy

@@ -13,34 +13,6 @@ discovery.kubernetes "nodes" {
   role = "node"
 }
 
-prometheus.scrape "nodes" {
-  targets    = discovery.kubernetes.nodes.targets
-  forward_to = [prometheus.remote_write.mimir.receiver]
-
-  bearer_token_file    = "/var/run/secrets/kubernetes.io/serviceaccount/token"
-
-  scheme               = "https"
-  scrape_interval      = "30s"
-
-  tls_config {
-    insecure_skip_verify = true
-  }
-
-  metrics_path = "/metrics/cadvisor"
-}
-
-
-
-
-
-
-
-loki.write "loki" {
-  endpoint {
-    url = "http://loki.loki.svc.cluster.local:3100/loki/api/v1/push"
-  }
-}
-
 discovery.kubernetes "pods" {
   role = "pod"
 }
@@ -52,6 +24,44 @@ discovery.relabel "pods" {
     source_labels = ["__meta_kubernetes_namespace"]
     regex         = "(kube-system|longhorn-system)"
     action        = "drop"
+  }
+}
+
+prometheus.exporter.unix "instance" {
+  procfs_path = "/host/proc"
+}
+
+prometheus.scrape "instance" {
+  targets    = prometheus.exporter.unix.instance.targets
+  forward_to = [prometheus.remote_write.mimir.receiver]
+}
+
+prometheus.scrape "nodes" {
+  targets    = discovery.kubernetes.nodes.targets
+  forward_to = [prometheus.remote_write.mimir.receiver]
+
+  scheme = "https"
+  bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+  tls_config {
+    insecure_skip_verify = true
+  }
+}
+
+prometheus.scrape "containers" {
+  targets    = discovery.kubernetes.nodes.targets
+  forward_to = [prometheus.remote_write.mimir.receiver]
+
+  scheme = "https"
+  metrics_path = "/metrics/cadvisor"
+  bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+  tls_config {
+    insecure_skip_verify = true
+  }
+}
+
+loki.write "loki" {
+  endpoint {
+    url = "http://loki.loki.svc.cluster.local:3100/loki/api/v1/push"
   }
 }
 

@@ -5,7 +5,9 @@ namespace: alloy
 resources:
   - namespace.yaml
   - serviceaccount.yaml
-  - deployment.yaml
+  - clusterrole.yaml
+  - clusterrolebinding.yaml
+  - daemonset.yaml
 
 configMapGenerator:
   - name: alloy
