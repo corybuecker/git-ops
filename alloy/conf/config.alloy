@@ -29,6 +29,7 @@ discovery.relabel "pods" {
 
 prometheus.exporter.unix "instance" {
   procfs_path = "/host/proc"
+  sysfs_path  = "/host/sys"
 }
 
 prometheus.scrape "instance" {
@@ -41,6 +42,7 @@ prometheus.scrape "nodes" {
   forward_to = [prometheus.remote_write.mimir.receiver]
 
   scheme = "https"
+  metrics_path = "/metrics"
   bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
   tls_config {
     insecure_skip_verify = true
