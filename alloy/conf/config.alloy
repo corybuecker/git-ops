@@ -35,6 +35,8 @@ prometheus.exporter.unix "instance" {
 prometheus.scrape "instance" {
   targets    = prometheus.exporter.unix.instance.targets
   forward_to = [prometheus.remote_write.mimir.receiver]
+
+  scrape_interval = "60s"
 }
 
 prometheus.scrape "nodes" {
@@ -47,6 +49,8 @@ prometheus.scrape "nodes" {
   tls_config {
     insecure_skip_verify = true
   }
+
+  scrape_interval = "60s"
 }
 
 prometheus.scrape "containers" {
@@ -59,6 +63,8 @@ prometheus.scrape "containers" {
   tls_config {
     insecure_skip_verify = true
   }
+
+  scrape_interval = "15s"
 }
 
 loki.write "loki" {
