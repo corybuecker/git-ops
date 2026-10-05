@@ -36,11 +36,11 @@ spec:
           image: alloy
           resources:
             limits:
-              cpu: 100m
-              memory: 512Mi
+              cpu: 200m
+              memory: 384Mi
             requests:
-              cpu: 100m
-              memory: 512Mi
+              cpu: 200m
+              memory: 384Mi
           volumeMounts:
           - name: data
             mountPath: /var/lib/alloy/data
