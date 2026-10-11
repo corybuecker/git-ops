@@ -127,11 +127,11 @@ httpRoute:
 
 resources:
   limits:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 250m
+    memory: 784Mi
   requests:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 250m
+    memory: 784Mi
 
 startupProbe:
   httpGet:

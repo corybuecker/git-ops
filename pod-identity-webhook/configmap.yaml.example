@@ -7,7 +7,7 @@ data:
   config: |-
     {
       "loki/loki": {
-        "RoleARN": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/Loki",
+        "RoleARN": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/loki",
         "TokenExpiration": 3600,
         "UseRegionalSTS": true,
         "Audience": "sts.amazonaws.com"
